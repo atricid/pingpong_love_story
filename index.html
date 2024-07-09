@@ -10,18 +10,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Klee+One&display=swap" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
-    <script>
-        WebFont.load({
-            google: {
-                families: ['Klee One']
-            },
-            active: e => {
-                console.log("font loaded!");
-                // now start setting up your PixiJS (or canvas) stuff!
-            }
-        });
-    </script>
 </head>
 <body>
     <div class="top-nav">
@@ -38,16 +26,16 @@
         const Assets = PIXI.Assets;
         const Graphics = PIXI.Graphics;
         const Text = PIXI.Text;
-        await Assets.load('https://fonts.googleapis.com/css2?family=Klee+One&display=swap');
         const containerWidth = 640;
         const containerHeight = 480;
         await app.init({ width: containerWidth, height: containerHeight })
         let gameContainer = document.querySelector('.game-container');
         gameContainer.appendChild(app.canvas);
 
-        let primaryColor = '#FB6F92';
-        let secondaryColor = '#FF8FAB';
-        let backgroundColor = '#FFC2D1';
+        const primaryColor = '#FB6F92';
+        const secondaryColor = '#FF8FAB';
+        const backgroundColor = '#FFC2D1';
+        const buttonColor = '#FB6F92'
 
         app.renderer.background.color = backgroundColor;
 
@@ -90,20 +78,18 @@
             })
         app.stage.addChild(speaker);
 
-        let dialog = new Text({
-                text: 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+        let dialog = new PIXI.Text({
+                text: wrapText('This is a long piece of text that should be wrapped to fit within the dialog box.', 40),
                 style: {
                     fontFamily: 'Klee One',
                     fontSize: 20,
                     fill: 'FFF',
-                    wordWrap: true,
                 },
-                position: { x: containerWidth / 8, y: 350 }
+                align: 'left',
+                maxWidth: containerWidth - 200,
+                position: { x: containerWidth / 8, y: 350 },
             })
         app.stage.addChild(dialog);
-
-
-
 
         // Add a ticker callback to move the sprite back and forth
         let elapsed = 0.0;
@@ -111,6 +97,29 @@
             elapsed += ticker.deltaTime;
             sprite.x = 100.0 + Math.cos(elapsed / 50.0) * 100.0;
         });
+
+        //Helper function used to wrap text
+        // Given text, and character limit per line, return string that wraps accordingly
+        function wrapText(text, widthLimit) {
+                let wrappedText = '';
+                let words = text.split(' ');
+                let currentLine = '';
+
+                for (let i = 0; i < words.length; i++) {
+                    let word = words[i];
+                    let potentialLine = currentLine + word;
+
+                    if (potentialLine.length <= widthLimit) {
+                        currentLine = potentialLine + ' ';
+                    } else {
+                        wrappedText += currentLine.trim() + '\n';
+                        currentLine = word + ' ';
+                    }
+                }
+
+                wrappedText += currentLine.trim();
+                return wrappedText;
+            }
     </script>
     
 </body>
