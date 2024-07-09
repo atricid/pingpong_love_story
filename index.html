@@ -10,6 +10,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Klee+One&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+    <script>
+        WebFont.load({
+            google: {
+                families: ['Klee One']
+            },
+            active: e => {
+                console.log("font loaded!");
+                // now start setting up your PixiJS (or canvas) stuff!
+            }
+        });
+    </script>
 </head>
 <body>
     <div class="top-nav">
@@ -47,7 +59,7 @@
         let chapterText = new Text({
                 text: 'Chapter',
                 style: {
-                    fontFamily: 'Klee-One',
+                    fontFamily: 'Klee One',
                     fontSize: 24,
                     fill: 'FFF',
                     align: 'center',
