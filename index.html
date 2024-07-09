@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ping Pong Love Story</title>
+    <script src="https://pixijs.download/release/pixi.js"></script>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Klee+One&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="top-nav">
+        <a href="/">Ping Pong Love Story</a>
+    </div>
+
+    <!-- Game container placed in here with script -->
+    <div class="game-container">
+    </div>
+    <script type="module">
+        // Create the application helper and add its render target to the page
+        // setup
+        const app = new PIXI.Application();
+        const Assets = PIXI.Assets;
+        const Graphics = PIXI.Graphics;
+        const Text = PIXI.Text;
+        await Assets.load('https://fonts.googleapis.com/css2?family=Klee+One&display=swap');
+        const containerWidth = 640;
+        const containerHeight = 480;
+        await app.init({ width: containerWidth, height: containerHeight })
+        let gameContainer = document.querySelector('.game-container');
+        gameContainer.appendChild(app.canvas);
+
+        let primaryColor = '#FB6F92';
+        let secondaryColor = '#FF8FAB';
+        let backgroundColor = '#FFC2D1';
+
+        app.renderer.background.color = backgroundColor;
+
+        let obj = new Graphics()
+            .rect(0, 0, containerWidth, 70)
+            .fill(primaryColor);
+        app.stage.addChild(obj);
+        
+        let chapterText = new Text({
+                text: 'Chapter',
+                style: {
+                    fontFamily: 'Klee-One',
+                    fontSize: 24,
+                    fill: 'FFF',
+                    align: 'center',
+                },
+                position: { x: containerWidth/2 - 25, y: 20 }
+            })
+        app.stage.addChild(chapterText);
+
+        // Create the sprite and add it to the stage
+        await PIXI.Assets.load('./assets/bunny.jpg');
+        let sprite = PIXI.Sprite.from('./assets/bunny.jpg');
+        sprite.position.set(100, 100);
+        app.stage.addChild(sprite);
+
+        // Add a ticker callback to move the sprite back and forth
+        let elapsed = 0.0;
+        app.ticker.add((ticker) => {
+            elapsed += ticker.deltaTime;
+            sprite.x = 100.0 + Math.cos(elapsed / 50.0) * 100.0;
+        });
+    </script>
+    
+</body>
+</html>
