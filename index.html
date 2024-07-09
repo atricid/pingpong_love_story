@@ -51,13 +51,13 @@
 
         app.renderer.background.color = backgroundColor;
 
-        let obj = new Graphics()
+        let header = new Graphics()
             .rect(0, 0, containerWidth, 70)
             .fill(primaryColor);
-        app.stage.addChild(obj);
+        app.stage.addChild(header);
         
         let chapterText = new Text({
-                text: 'Chapter',
+                text: 'Chapter 1',
                 style: {
                     fontFamily: 'Klee One',
                     fontSize: 24,
@@ -73,6 +73,37 @@
         let sprite = PIXI.Sprite.from('./assets/bunny.jpg');
         sprite.position.set(100, 100);
         app.stage.addChild(sprite);
+
+        let bottomDiv = new Graphics()
+                .rect(0, 300, containerWidth, containerHeight-300)
+                .fill(secondaryColor)
+            app.stage.addChild(bottomDiv);
+        
+        let speaker = new Text({
+                text: 'Speaker',
+                style: {
+                    fontFamily: 'Klee One',
+                    fontSize: 24,
+                    fill: 'FFF',
+                },
+                position: { x: containerWidth/8, y: 320 }
+            })
+        app.stage.addChild(speaker);
+
+        let dialog = new Text({
+                text: 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+                style: {
+                    fontFamily: 'Klee One',
+                    fontSize: 20,
+                    fill: 'FFF',
+                    wordWrap: true,
+                },
+                position: { x: containerWidth / 8, y: 350 }
+            })
+        app.stage.addChild(dialog);
+
+
+
 
         // Add a ticker callback to move the sprite back and forth
         let elapsed = 0.0;
