@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ping Pong Love Story</title>
     <script src="https://pixijs.download/release/pixi.js"></script>
+
     <link rel="stylesheet" href="style.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,7 +41,7 @@
         app.renderer.background.color = backgroundColor;
 
         let header = new Graphics()
-            .rect(0, 0, containerWidth, 70)
+            .rect(0, 0, containerWidth, 50)
             .fill(primaryColor);
         app.stage.addChild(header);
         
@@ -52,7 +53,7 @@
                     fill: 'FFF',
                     align: 'center',
                 },
-                position: { x: containerWidth/2 - 25, y: 20 }
+                position: { x: containerWidth/2 - 9 * 6, y: 50/2-12 } // height of header / 2 - font size / 2, to center text
             })
         app.stage.addChild(chapterText);
 
@@ -98,8 +99,24 @@
             sprite.x = 100.0 + Math.cos(elapsed / 50.0) * 100.0;
         });
 
+
+        const margin = 10
+        const buttonWidth = 150
+        const buttonHeight = 45
+        // Usage:
+        createButton("Click Me1", buttonWidth, buttonHeight, containerWidth - 170, containerHeight - 170, () => {
+            console.log('Button clicked!');
+            });
+
+        createButton("Click Me2", buttonWidth, buttonHeight, containerWidth - 170, containerHeight - 170 + (margin + buttonHeight), () => {
+            console.log('Button clicked!');
+            });
+
+        createButton("Click Me3", buttonWidth, buttonHeight, containerWidth - 170, containerHeight - 170 + 2 * (margin + buttonHeight), () => {
+                console.log('Button clicked!');
+            });
         //Helper function used to wrap text
-        // Given text, and character limit per line, return string that wraps accordingly
+        // Given text, and character limit per line, return string that wraps accordinglyg
         function wrapText(text, widthLimit) {
                 let wrappedText = '';
                 let words = text.split(' ');
@@ -120,6 +137,31 @@
                 wrappedText += currentLine.trim();
                 return wrappedText;
             }
+        
+        // Create the button
+        function createButton(text, width, height, x, y, callback) {
+            let button = new PIXI.Graphics()
+                .rect(x, y, width, height)
+                .fill(buttonColor);
+
+            let buttonText = new PIXI.Text({
+                text: text,
+                style: {
+                    fontFamily: 'Klee One',
+                    fontSize: 24,
+                    fill: 'FFF',
+                },
+                position: { x: button.bounds.x + text.length * 2, y: button.bounds.y + 12 },
+            });
+
+            app.stage.addChild(button);
+            app.stage.addChild(buttonText);
+
+            button.interactive = true;
+            button.buttonMode = true;
+            button.on('pointerdown', callback);
+        }
+
     </script>
     
 </body>
