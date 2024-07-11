@@ -1,0 +1,99 @@
+body {
+    margin: 0;
+    height: 100vh;
+    padding: 0;
+    min-height: 100%;
+    font-family: 'Klee One';
+    background-color: #FFE5EC;
+}
+
+.top-nav {
+    overflow: auto;
+    background-color: #FF8FAB; 
+}
+
+.top-nav a {
+    font-size: 40px;
+    color: white;
+    text-decoration: none;
+}
+
+.top-nav-home {
+    height:20vh;
+    overflow: auto;
+    background-color: #FF8FAB;
+}
+
+.top-nav-home h1 {
+    text-align: center;
+    font-size: 60px;
+    font-family: 'Monoton';
+    text-decoration: none;
+}
+
+
+.parent-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.box-container {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+#box1, #box2, #box3 {
+    width: 400px;
+    height: 200px;
+    border-radius: 20px;
+    background: #FF8FAB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+.box-text {
+    font-size: 50px;
+    color: white;
+}
+
+
+.start-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 80%;
+    font-size: 40px; 
+    width: 250px;
+    height: 100px;
+    border-radius: 20px;
+    border: 0;
+    color: white;
+    background-color: #FF8FAB;
+    text-decoration: none;
+}
+
+.img-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+img {
+    width: auto;
+    height: 70vh;
+}
+
+.game-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
