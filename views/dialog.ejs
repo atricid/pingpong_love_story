@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ping Pong Love Story</title>
     <script src="https://pixijs.download/release/pixi.js"></script>
 
-    <link rel="stylesheet" type = "text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Klee+One&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="top-nav">
         <a href="/">Ping Pong Love Story</a>
@@ -21,6 +23,35 @@
     <div class="game-container">
     </div>
     <script type="module">
+        const mainCharacter = "Pong-Chan";
+        const blackPaddle = "blackPaddle";
+        const redPaddle = "redPaddle";
+
+        const story = [
+            {
+                speaker: blackPaddle,
+                dialog: "Hi, " + mainCharacter, answers: [
+                    { text: "Hi", next: "greet_normal" },
+                    { text: "...", next: "greet_ignore" },
+                ]
+            },
+
+            
+            { label: "greet_normal", m: "I am happy you like my game!", next: "like_end" },
+            { label: "greet_ignore", m: "You made me sad!", next: "like_end" },
+            {
+                speaker: "blackPaddle",
+                dialog: "Do you like it?", answers: [
+                    { m: "yes", next: "like_yes" },
+                    { m: "no", next: "like_no" },
+                ]
+            },
+            { label: "like_yes", m: "I am happy you like my game!", next: "like_end" },
+            { label: "like_no", m: "You made me sad!", next: "like_end" },
+            { label: "like_end" },
+            { m: "OK, let's change the topic" }
+        ];
+
         // Create the application helper and add its render target to the page
         // setup
         const app = new PIXI.Application();
@@ -44,43 +75,53 @@
             .rect(0, 0, containerWidth, 50)
             .fill(primaryColor);
         app.stage.addChild(header);
-        
+
         let chapterText = new Text({
-                text: 'Chapter 1',
-                style: {
-                    fontFamily: 'Klee One',
-                    fontSize: 24,
-                    fill: 'FFF',
-                    align: 'center',
-                },
-                position: { x: containerWidth/2 - 9 * 6, y: 50/2-12 } // height of header / 2 - font size / 2, to center text
-            })
+            text: 'Chapter 1',
+            style: {
+                fontFamily: 'Klee One',
+                fontSize: 24,
+                fill: 'FFF',
+                align: 'center',
+            },
+            position: { x: containerWidth / 2 - 9 * 6, y: 50 / 2 - 12 } // height of header / 2 - font size / 2, to center text
+        })
         app.stage.addChild(chapterText);
 
-        // Create the sprite and add it to the stage
         await PIXI.Assets.load('/assets/bunny.jpg');
         let sprite = PIXI.Sprite.from('/assets/bunny.jpg');
-        sprite.position.set(100, 100);
-        app.stage.addChild(sprite);
 
-        let bottomDiv = new Graphics()
-                .rect(0, 300, containerWidth, containerHeight-300)
+        execute_game();
+
+        function execute_game() {
+            var current_line = 0;
+            var current_step = story[current_line];
+            renderDialog(current_step.speaker, current_step.dialog, current_step.answers);
+        }
+
+        function renderDialog(speaker, dialog, answers) {
+            // Create the sprite and add it to the stage
+            sprite.position.set(100, 100);
+            app.stage.addChild(sprite);
+
+            let bottomDiv = new Graphics()
+                .rect(0, 300, containerWidth, containerHeight - 300)
                 .fill(secondaryColor)
             app.stage.addChild(bottomDiv);
-        
-        let speaker = new Text({
-                text: 'Speaker',
+
+            let speakerPixi = new Text({
+                text: speaker,
                 style: {
                     fontFamily: 'Klee One',
                     fontSize: 24,
                     fill: 'FFF',
                 },
-                position: { x: containerWidth/8, y: 320 }
+                position: { x: containerWidth / 8, y: 320 }
             })
-        app.stage.addChild(speaker);
+            app.stage.addChild(speakerPixi);
 
-        let dialog = new PIXI.Text({
-                text: wrapText('This is a long piece of text that should be wrapped to fit within the dialog box.', 40),
+            let dialogPixi = new PIXI.Text({
+                text: wrapText(dialog, 40),
                 style: {
                     fontFamily: 'Klee One',
                     fontSize: 20,
@@ -90,54 +131,53 @@
                 maxWidth: containerWidth - 200,
                 position: { x: containerWidth / 8, y: 350 },
             })
-        app.stage.addChild(dialog);
+            app.stage.addChild(dialogPixi);
 
-        // Add a ticker callback to move the sprite back and forth
-        let elapsed = 0.0;
-        app.ticker.add((ticker) => {
-            elapsed += ticker.deltaTime;
-            sprite.x = 100.0 + Math.cos(elapsed / 50.0) * 100.0;
-        });
+            // Add a ticker callback to move the sprite back and forth
+            let elapsed = 0.0;
 
-
-        const margin = 10
-        const buttonWidth = 150
-        const buttonHeight = 45
-        // Usage:
-        createButton("Click Me1", buttonWidth, buttonHeight, containerWidth - 170, containerHeight - 170, () => {
-            console.log('Button clicked!');
+            app.ticker.add((ticker) => {
+                elapsed += ticker.deltaTime;
+                sprite.y = containerHeight/6 + Math.cos(elapsed / 50.0) * 10.0;
             });
 
-        createButton("Click Me2", buttonWidth, buttonHeight, containerWidth - 170, containerHeight - 170 + (margin + buttonHeight), () => {
-            console.log('Button clicked!');
+            const margin = 10
+            const buttonWidth = 150
+            const buttonHeight = 45
+            // Usage:
+            answers.forEach((option, index) => {
+                let buttonXPosition = containerWidth - 170;
+                let buttonYPosition = containerHeight - 170 + (index * (margin + buttonHeight));
+                createButton(option.text, buttonWidth, buttonHeight, buttonXPosition, buttonYPosition, () => {
+                    return option.next;
+                    // Handle button click logic here
+                });
             });
 
-        createButton("Click Me3", buttonWidth, buttonHeight, containerWidth - 170, containerHeight - 170 + 2 * (margin + buttonHeight), () => {
-                console.log('Button clicked!');
-            });
+        }
         //Helper function used to wrap text
         // Given text, and character limit per line, return string that wraps accordinglyg
         function wrapText(text, widthLimit) {
-                let wrappedText = '';
-                let words = text.split(' ');
-                let currentLine = '';
+            let wrappedText = '';
+            let words = text.split(' ');
+            let currentLine = '';
 
-                for (let i = 0; i < words.length; i++) {
-                    let word = words[i];
-                    let potentialLine = currentLine + word;
+            for (let i = 0; i < words.length; i++) {
+                let word = words[i];
+                let potentialLine = currentLine + word;
 
-                    if (potentialLine.length <= widthLimit) {
-                        currentLine = potentialLine + ' ';
-                    } else {
-                        wrappedText += currentLine.trim() + '\n';
-                        currentLine = word + ' ';
-                    }
+                if (potentialLine.length <= widthLimit) {
+                    currentLine = potentialLine + ' ';
+                } else {
+                    wrappedText += currentLine.trim() + '\n';
+                    currentLine = word + ' ';
                 }
-
-                wrappedText += currentLine.trim();
-                return wrappedText;
             }
-        
+
+            wrappedText += currentLine.trim();
+            return wrappedText;
+        }
+
         // Create the button
         function createButton(text, width, height, x, y, callback) {
             let button = new PIXI.Graphics()
@@ -163,6 +203,7 @@
         }
 
     </script>
-    
+
 </body>
+
 </html>
