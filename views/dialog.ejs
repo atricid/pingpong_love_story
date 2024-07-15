@@ -36,7 +36,7 @@
                 ]
             },
 
-            
+
             { label: "greet_normal", m: "I am happy you like my game!", next: "like_end" },
             { label: "greet_ignore", m: "You made me sad!", next: "like_end" },
             {
@@ -92,7 +92,8 @@
         let sprite = PIXI.Sprite.from('/assets/bunny.jpg');
 
         execute_game();
-
+        
+        // https://gamedev.stackexchange.com/questions/54238/how-do-i-implement-branching-dialogue-in-javascript
         function execute_game() {
             var current_line = 0;
             var current_step = story[current_line];
