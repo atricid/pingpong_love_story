@@ -31,25 +31,15 @@
             {
                 speaker: blackPaddle,
                 dialog: "Hi, " + mainCharacter, answers: [
-                    { text: "Hi", next: "greet_normal" },
-                    { text: "...", next: "greet_ignore" },
+                    { option: "Hi", next: "greet_normal" },
+                    { option: "...", next: "greet_ignore" },
                 ]
             },
 
 
-            { label: "greet_normal", m: "I am happy you like my game!", next: "like_end" },
-            { label: "greet_ignore", m: "You made me sad!", next: "like_end" },
-            {
-                speaker: "blackPaddle",
-                dialog: "Do you like it?", answers: [
-                    { m: "yes", next: "like_yes" },
-                    { m: "no", next: "like_no" },
-                ]
-            },
-            { label: "like_yes", m: "I am happy you like my game!", next: "like_end" },
-            { label: "like_no", m: "You made me sad!", next: "like_end" },
-            { label: "like_end" },
-            { m: "OK, let's change the topic" }
+            { label: "greet_normal", speaker: blackPaddle, dialog: "I am happy you like my game!", next: "like_end", answers: [{option:'...', next:"greet_end"}]},
+            { label: "greet_ignore", speaker: blackPaddle, dialog: "You made me sad!", next: "like_end", answers: [{option:'...', next:"greet_end"}]},
+            { label: "greet_end", speaker: blackPaddle, dialog: "....", next: "like_end", answers: [{option:'...', next:"greet_end"}]}
         ];
 
         // Create the application helper and add its render target to the page
@@ -91,15 +81,31 @@
         await PIXI.Assets.load('/assets/bunny.jpg');
         let sprite = PIXI.Sprite.from('/assets/bunny.jpg');
 
+        let currentLine = 0
         execute_game();
         
         // https://gamedev.stackexchange.com/questions/54238/how-do-i-implement-branching-dialogue-in-javascript
         function execute_game() {
-            var current_line = 0;
-            var current_step = story[current_line];
-            renderDialog(current_step.speaker, current_step.dialog, current_step.answers);
+            //Start the game
+            renderDialog(story[currentLine].speaker, story[currentLine].dialog, story[currentLine].answers);
         }
 
+        // rerenders the page, when button is clicked
+        function handleAnswerClick(nextLabel) {
+            const nextNode = findStoryNode(nextLabel);
+            if (nextNode) {
+                renderDialog(nextNode.speaker ,nextNode.dialog, nextNode.answers);
+            } else {
+                console.error(`Node with label ${nextLabel} not found`);
+            }
+        }
+        
+        // finds the corresponding node to render
+        function findStoryNode(nextLabel) {
+            return story.find(node => node.label === nextLabel);
+        }
+
+        // renders dialog based off of node
         function renderDialog(speaker, dialog, answers) {
             // Create the sprite and add it to the stage
             sprite.position.set(100, 100);
@@ -149,8 +155,8 @@
             answers.forEach((option, index) => {
                 let buttonXPosition = containerWidth - 170;
                 let buttonYPosition = containerHeight - 170 + (index * (margin + buttonHeight));
-                createButton(option.text, buttonWidth, buttonHeight, buttonXPosition, buttonYPosition, () => {
-                    return option.next;
+                createButton(option.option, buttonWidth, buttonHeight, buttonXPosition, buttonYPosition, () => {
+                    return handleAnswerClick(option.next);
                     // Handle button click logic here
                 });
             });
