@@ -23,23 +23,391 @@
     <div class="game-container">
     </div>
     <script type="module">
+        const narrator = "Narrator";
         const mainCharacter = "Pong-Chan";
         const blackPaddle = "blackPaddle";
         const redPaddle = "redPaddle";
 
         const story = [
+            {speaker: narrator, dialog: "Ball was a lonely soul.", answers: [{ option: "...", next: "greet_ignore1" },]},
+
             {
-                speaker: blackPaddle,
-                dialog: "Hi, " + mainCharacter, answers: [
-                    { option: "Hi", next: "greet_normal" },
-                    { option: "...", next: "greet_ignore" },
+                label: "greet_ignore1",
+                speaker: narrator,
+                dialog: "After being separated by his value pack,", answers: [
+                    { option: "...", next: "greet_ignore2" },
                 ]
             },
 
+            {
+                label: "greet_ignore2",
+                speaker: narrator,
+                dialog: "he was lost underneath a ping pong table until Black found him.", answers: [
+                    { option: "...", next: "greet_ignore3" },
+                ]
+            },
 
-            { label: "greet_normal", speaker: blackPaddle, dialog: "I am happy you like my game!", next: "like_end", answers: [{option:'...', next:"greet_end"}]},
-            { label: "greet_ignore", speaker: blackPaddle, dialog: "You made me sad!", next: "like_end", answers: [{option:'...', next:"greet_end"}]},
-            { label: "greet_end", speaker: blackPaddle, dialog: "....", next: "like_end", answers: [{option:'...', next:"greet_end"}]}
+            {
+                label: "greet_ignore3",
+                speaker: narrator,
+                dialog: "Since then,", answers: [
+                    { option: "...", next: "greet_ignore4" },
+                ]
+            },
+
+            {
+                label: "greet_ignore4",
+                speaker: narrator,
+                dialog: "they shared a deep passionate love and have been together ever since.", answers: [
+                    { option: "...", next: "greet_ignore5" },
+                ]
+            },
+
+            {
+                label: "greet_ignore5",
+                speaker: narrator,
+                dialog: "Although, recently,", answers: [
+                    { option: "...", next: "greet_ignore6" },
+                ]
+            },
+
+            {
+                label: "greet_ignore6",
+                speaker: narrator,
+                dialog: "the relationship between them has started to feel one-sided.", answers: [
+                    { option: "...", next: "greet_ignore7" },
+                ]
+            },
+ 
+            {
+                label: "greet_ignore7",
+                speaker: narrator,
+                dialog: " Black is the one always in control,", answers: [
+                    { option: "...", next: "greet_ignore8" },
+                ]
+            },
+
+            {
+                label: "greet_ignore8",
+                speaker: narrator,
+                dialog: " so Ball feels like he can’t make any decisions for himself", answers: [
+                    { option: "...", next: "greet_ignore9" },
+                ]
+            },
+
+            {
+                label: "greet_ignore9",
+                speaker: narrator,
+                dialog: "–until Ball met Red.", answers: [
+                    { option: "...", next: "greet_ignore10" },
+                ]
+            },
+
+            {
+                label: "greet_ignore10",
+                speaker: narrator,
+                dialog: "Red took Ball’s thoughts into consideration and let him think for himself.", answers: [
+                    { option: "...", next: "greet_ignore11" },
+                ]
+            },
+            
+            {
+                label: "greet_ignore11",
+                speaker: narrator,
+                dialog: "Ever since then,", answers: [
+                    { option: "...", next: "greet_ignore12" },
+                ]
+            },
+
+            {
+                label: "greet_ignore12",
+                speaker: narrator,
+                dialog: "Ball has been conflicted about his feelings", answers: [
+                    { option: "...", next: "greet_ignore13" },
+                ]
+            },
+
+            {
+                label: "greet_ignore13",
+                speaker: narrator,
+                dialog: "and needs to make a decision soon before things get messy…", answers: [
+                    { option: "...", next: "first_decision1" },
+                ]
+            },
+
+            {
+                label: "first_decision1",
+                speaker: narrator,
+                dialog: "Late at night, Ball was rolling around the locker room one day after a hard workout and found Red against one of the showers with his padding off.", answers: [
+                    { option: "...", next: "first_decision2" },
+                ]
+            },
+
+            {
+                label: "first_decision2",
+                speaker: narrator,
+                dialog: "His bare wood was out in the open, giving off the aroma of freshly cut bark.", answers: [
+                    { option: "...", next: "first_decision3" },
+                ]
+            },
+
+            {
+                label: "first_decision3",
+                speaker: narrator,
+                dialog: "What will Ball do?", answers: [
+                    { option: "Play some \"ping pong\" with him", next: "red_decision1" },
+                    { option: "Stay faithful to Black and ignore him", next:"black_decision1"}
+                ]
+            },
+
+            {
+                label: "red_decision1",
+                speaker: mainCharacter,
+                dialog: "Hey, I didn't expect to see you here this late.", answers: [
+                    { option: "...", next: "red_decision2" }
+                ]
+            },
+
+            {
+                label: "red_decision2",
+                speaker: redPaddle,
+                dialog: "Hey. I had a feeling you’d be around here at this time. Part of me wanted to see you. I know how much you love training, so how about it, one round on me?", 
+                answers: [
+                    { option: "Let's take it slow", next: "red_red_decision1"},
+                    { option: "I'm actually allergic to water", next: "red_black_decision1"}
+                ]
+            },
+
+            {
+                label: "red_red_decision1",
+                speaker: mainCharacter,
+                dialog: "Here? I’ve never trained while wet before… Maybe it’ll be good practice if I’m playing outdoors while it’s raining. Let’s take it slow. I wanna take my time to learn this.", 
+                answers: [
+                    { option: "...", next: "red_red_decision2"}
+                ]
+            },
+
+            {
+                label: "red_red_decision2",
+                speaker: redPaddle,
+                dialog: "You’re the boss. ", 
+                answers: [
+                    { option: "...", next: "red_red_decision3"}
+                ]
+            },
+
+            {
+                label: "red_red_decision3",
+                speaker: narrator,
+                dialog: "The two passionately played a back and forth game of ping pong together inside the shower room to practice for a rainy game one day…", 
+                answers: [
+                    { option: "...", next: "red_red_decision3"}
+                ]
+            },
+
+            {
+                label: "red_black_decision1",
+                speaker: mainCharacter,
+                dialog: "Um, actually, I’m allergic to water.", 
+                answers: [
+                    { option: "...", next: "red_black_decision2"}
+                ]
+            },
+
+            {
+                label: "red_black_decision2",
+                speaker: redPaddle,
+                dialog: "Um, actually, how is that even possible?", 
+                answers: [
+                    { option: "...", next: "red_black_decision3"}
+                ]
+            },
+
+            {
+                label: "red_black_decision3",
+                speaker: mainCharacter,
+                dialog: "Anything is possible my friend. You just have to believe…", 
+                answers: [
+                    { option: "...", next: "red_black_decision4"}
+                ]
+            },
+
+            {
+                label: "red_black_decision4",
+                speaker: narrator,
+                dialog: "Ball leaves the shower room.", 
+                answers: [
+                    { option: "...", next: "red_black_decision5"}
+                ]
+            },
+
+            {
+                label: "red_black_decision5",
+                speaker: redPaddle,
+                dialog: "What was that?", 
+                answers: [
+                    { option: "...", next: "red_black_decision5"}
+                ]
+            },
+
+            {
+                label: "black_decision1",
+                speaker: narrator,
+                dialog: "Ball decided to ignore Red since he had just remembered that Black wanted to practice smashing drills with him. He packed up his stuff and headed back home…", answers: [
+                    { option: "...", next: "black_decision2" }
+                ]
+            },
+
+            {
+                label: "black_decision2",
+                speaker: blackPaddle,
+                dialog: "Hey I’m so glad to see you! I was just finishing this smashing drill, and I thought that you would love it! I’m so ready to do 10,893 more drills tonight. I am–I really am!", answers: [
+                    { option: "Can we take it slow?", next: "black_black_decision1" },
+                    { option: "I'm gonna deflate tonight.", next:"black_red_decision1"}
+                ]
+            },
+
+            {
+                label: "black_black_decision1",
+                speaker: mainCharacter,
+                dialog: "I’m down for whatever you have in store. Although, could we take it slow this time? I feel exhausted today after my workout.", answers: [
+                    { option: "...", next: "black_black_decision2" }
+                ]
+            },
+
+            {
+                label: "black_black_decision2",
+                speaker: blackPaddle,
+                dialog: "WHAT?? You're backing out?!! There is no ping without the pong.", answers: [
+                    { option: "...", next: "black_black_decision3" }
+                ]
+            },
+
+            {
+                label: "black_black_decision3",
+                speaker: blackPaddle,
+                dialog: "I want to see you working hard every day because when I found you, you were dented, deflated, and broken,", answers: [
+                    { option: "...", next: "black_black_decision4" }
+                ]
+            },
+
+            {
+                label: "black_black_decision4",
+                speaker: blackPaddle,
+                dialog: "I want to see you working hard every day because when I found you, you were dented, deflated, and broken,", answers: [
+                    { option: "...", next: "black_black_decision5" }
+                ]
+            },
+
+            {
+                label: "black_black_decision5",
+                speaker: blackPaddle,
+                dialog: "but when I patched you up, together, we became unstoppable by working as hard as we could every single day.", answers: [
+                    { option: "...", next: "black_black_decision6" }
+                ]
+            },
+
+            {
+                label: "black_black_decision6",
+                speaker: blackPaddle,
+                dialog: "Look at you now, becoming the ball that has played in the most Olympics five times consecutively in a row.", answers: [
+                    { option: "...", next: "black_black_decision7" }
+                ]
+            },
+
+            {
+                label: "black_black_decision7",
+                speaker: mainCharacter,
+                dialog: "Yeah, that was a pretty great achievement. Thanks, Black for reminding me. You always motivate me to be my best self. ", answers: [
+                    { option: "...", next: "black_black_decision8" }
+                ]
+            },
+
+            {
+                label: "black_black_decision8",
+                speaker: narrator,
+                dialog: "Ball and Black have a fierce, yet passionate smashing session throughout the entire night (BANG)(CLANK)(CLONK).", answers: [
+                    { option: "...", next: "black_black_decision9" }
+                ]
+            },
+
+            {
+                label: "black_black_decision9",
+                speaker: narrator,
+                dialog: "They know that with each smash (CLANG), they’ll grow closer and closer to their dreams of becoming world renowned ping pong equipment and grow closer to themselves.", answers: [
+                    { option: "...", next: "black_black_decision9" }
+                ]
+            }, 
+
+            {
+                label: "black_red_decision1",
+                speaker: mainCharacter,
+                dialog: "I’m gonna deflate tonight. It’s been a long day.", answers: [
+                    { option: "...", next: "black_red_decision2"}
+                ]
+            },
+
+            {
+                label: "black_red_decision2",
+                speaker: blackPaddle,
+                dialog: "Don’t make me rally you against the wall >:(", answers: [
+                    { option: "...", next: "black_red_decision3"}
+                ]
+            },
+
+            {
+                label: "black_red_decision3",
+                speaker: mainCharacter,
+                dialog: "You know what? I’m tired, and I want to rest. Can’t I just have this?", answers: [
+                    { option: "...", next: "black_red_decision4"}
+                ]
+            },
+
+            {
+                label: "black_red_decision4",
+                speaker: blackPaddle,
+                dialog: "NO. We’ve worked so hard to become the best ping pong pair in the world, and you’re just gonna let that go?", answers: [
+                    { option: "...", next: "black_red_decision5"}
+                ]
+            },
+
+            {
+                label: "black_red_decision5",
+                speaker: blackPaddle,
+                dialog: "One day of rest means that we’re one day behind the rest. It’s too late to back out now.", answers: [
+                    { option: "...", next: "black_red_decision6"}
+                ]
+            },
+
+            {
+                label: "black_red_decision6",
+                speaker: mainCharacter,
+                dialog: "Are you serious? I just ask for one day, and you act like I’m quitting! I’m going out.", answers: [
+                    { option: "...", next: "black_red_decision7"}
+                ]
+            },
+
+            {
+                label: "black_red_decision7",
+                speaker: narrator,
+                dialog: "Ball hangs out with red the rest of the night.", answers: [
+                    { option: "...", next: "black_red_decision7"}
+                ]
+            }
+
+           
+
+
+
+
+
+
+
+
+
+
+
+
         ];
 
         // Create the application helper and add its render target to the page
