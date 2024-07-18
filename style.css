@@ -1,0 +1,171 @@
+body {
+    margin: 0;
+    height: 100vh;
+    padding: 0;
+    min-height: 100%;
+    font-family: 'Klee One';
+    background-color: #FFE5EC;
+}
+
+.top-nav {
+    background-color: #FF8FAB;
+  }
+
+top-nav a {
+    font-size: 40px;
+    color: white;
+    text-decoration: none;
+}
+
+
+.parent-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */ 
+}
+
+.box-container {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+
+
+#box2 {
+    width: 400px;
+    height: 200px;
+    border-radius: 20px;
+    background: #FF8FAB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#box3 {
+    width: 400px;
+    height: 200px;
+    border-radius: 20px;
+    background: #FF8FAB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box-text {
+    font-size: 50px;
+    color: white;
+}
+
+.game-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+body {
+    background-color: rgb(253, 230, 234);
+  }
+  
+  #header {
+    background-color: rgba(255, 143, 171, 1);
+    color: white;
+    font-size: 26px;
+    font-weight: 700;
+    text-align: center;
+    padding: 20px;
+    margin: 20px auto;
+    width: 80%;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    display: block;
+  }
+
+  #firstImages {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+}
+
+  #introductionText {
+    height: 400px;
+    float: left;
+    padding: 5px;
+    order: 1;
+    
+  }
+
+  #retroPaddle {
+    height: 300px;
+    border-radius: 20px;
+    border-color: white;
+    float: right;
+    order: 2;
+  }
+
+  #progressBox {
+    height: 300px;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #box {
+    background-color: #FFC2D1;
+    width: 80%;
+    height: 300px;
+    margin: auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  #text-rectangle {
+    background-color: rgba(255, 143, 171, 0.7);
+    width: 100%;
+    height: 100px;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    flex-direction: column;
+  }
+  
+  #chapter-rectangle {
+    background-color: rgba(255, 143, 171, 0.7);
+    width: 100%;
+    height: 30px;
+    position: absolute;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  #code {
+    height: 500px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #introduction-page {
+    height: 100vh; 
+    width: 100%; 
+    object-fit: contain;
+  }
