@@ -13,6 +13,7 @@ body {
 }
 
 .top-nav a {
+    padding: 10px;
     font-size: 40px;
     color: white;
     text-decoration: none;
